@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package calculate;
+option go_package=".;pb";
+
+message ComputeAverageRequest {
+    int64 number = 1;
+}
+
+message ComputeAverageResponse {
+    double number = 1;
+}
+
+message SquareRootRequest {
+    int32 number = 1;
+}
+
+message SquareRootResponse {
+    double number = 1;
+}
+
+service CalculateService{
+    // Client Stream Service
+    rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
+    // error handling
+    // This will throw exception when request number is negative
+    // error is INVALID_ARGUMENT
+    rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {};
+}
